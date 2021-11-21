@@ -1,17 +1,25 @@
 import { Controller } from '@nestjs/common';
-import { Crud } from '@nestjsx/crud';
+import { ApiTags } from '@nestjs/swagger';
+import { Crud, CrudController } from '@nestjsx/crud';
 import { Product } from './product.entity';
 import { ProductService } from './product.service';
 
 @Crud({
-  model:{
+  model: {
     type: Product
+  },
+  params: {
+    productId: {
+      field: 'productId',
+      type: 'number',
+      primary: true,
+    }
   }
 })
 
-@Controller('products')
-export class ProductController {
-  constructor(public service: ProductService){
-
+@ApiTags("Products")
+@Controller("products")
+export class ProductController implements CrudController<Product> {
+  constructor(public service: ProductService) {
   }
 }
