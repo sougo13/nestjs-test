@@ -1,6 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { Crud } from '@nestjsx/crud';
-import { Product } from './product.model';
+import { Product } from './product.entity';
 import { ProductService } from './product.service';
 
 @Crud({
@@ -12,6 +12,6 @@ import { ProductService } from './product.service';
 @Controller('products')
 export class ProductController {
   constructor(public service: ProductService){
-    
+
   }
 }
