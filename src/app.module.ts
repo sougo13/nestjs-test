@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Product } from './product/product.entity';
 import { ProductModule } from './product/product.module';
+import { User } from './user/user.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -16,15 +18,16 @@ import { ProductModule } from './product/product.module';
       username: process.env.MYSQL_USER,
       password: process.env.MYSQL_PASSWORD,
       database: process.env.MYSQL_DB,
-      entities: [Product],
+      entities: [Product, User],
       synchronize: true,
       migrations: ["dist/src/migrations/*{.ts,.js}"],
-      migrationsRun: true,
+      migrationsRun: false,
       cli: {
         migrationsDir: "src/migrations"
       }
     }),
-    ProductModule
+    ProductModule,
+    UserModule
   ],
   controllers: [],
   providers: [],

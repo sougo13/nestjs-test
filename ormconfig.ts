@@ -10,7 +10,7 @@ const config: MysqlConnectionOptions = {
   entities: ['dist/src/**/*.entity.js'],
   synchronize: true,
   migrations: ["dist/src/migrations/*{.ts,.js}"],
-  migrationsRun: true,
+  migrationsRun: false,
   cli: {
     migrationsDir: "src/migrations"
   }
