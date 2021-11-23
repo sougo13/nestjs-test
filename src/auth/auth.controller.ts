@@ -1,7 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto, ResponseUserDto } from 'src/user/dto/create-user.dto';
-import { User } from 'src/user/user.entity';
 import { AuthService } from './auth.service';
 
 @ApiTags('Authorization')
@@ -16,7 +15,7 @@ export class AuthController {
     return this.authService.login(userDto);
   }
 
-  @ApiResponse({status:200, type: ResponseUserDto})
+  @ApiOkResponse({type: ResponseUserDto})
   @Post('/registration')
   registration(@Body() userDto: CreateUserDto) {
     return this.authService.registration(userDto);
