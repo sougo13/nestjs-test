@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+RUN nest build
+
 RUN npm install
 
 COPY . .
