@@ -1,6 +1,7 @@
-import { CacheInterceptor, Controller, UseInterceptors } from '@nestjs/common';
+import { CacheInterceptor, Controller, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Crud, CrudController, CrudRequest, Override, ParsedRequest } from '@nestjsx/crud';
+import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Product } from './product.entity';
 import { ProductService } from './product.service';
 
@@ -27,14 +28,24 @@ export class ProductController implements CrudController<Product> {
   }
 
   @Override()
-  async getMany(@ParsedRequest() req: CrudRequest) {
-    const allProducts = await this.base.getManyBase(req) as Product[];
-    return this.service.chunkArray(allProducts, 4);
-  }
-
-  @Override()
   @UseInterceptors(CacheInterceptor)
   async getOne(@ParsedRequest() req: CrudRequest){
     return this.base.getOneBase(req);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  async createOne(
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Product){
+    return this.base.createOneBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  async updateOne(
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Product){
+    return this.base.updateOneBase(req, dto);
   }
 }

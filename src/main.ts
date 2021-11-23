@@ -9,7 +9,7 @@ async function start() {
     .setTitle('Nest Project')
     .setDescription('Документация REST API')
     .setVersion('1.0.0')
-    .addTag('Radsoetv Dmitry')
+    .addTag('Radostev Dmitry')
     .build()
 
   const document = SwaggerModule.createDocument(app, config);

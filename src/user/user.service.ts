@@ -14,7 +14,7 @@ export class UserService {
   }
 
   getOneByEmail(email: string): Promise<User>{
-    return this.usersRepository.findOneOrFail(email);
+    return this.usersRepository.findOne({email});
   }
 
   createUser(dto: CreateUserDto): Promise<User>{
