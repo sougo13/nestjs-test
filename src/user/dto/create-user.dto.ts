@@ -1,4 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { ApiProperty, ApiResponse } from "@nestjs/swagger";
 import { IsEmail, IsString, Length } from "class-validator";
 
 export class CreateUserDto {
@@ -13,4 +13,11 @@ export class CreateUserDto {
   @Length(4, 16, { message: 'Не меньше 4 и не больше 16' })
   readonly password: string;
 
+}
+
+export class ResponseUserDto {
+
+  @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9', description: 'token' })
+  readonly token: string;
+  
 }
