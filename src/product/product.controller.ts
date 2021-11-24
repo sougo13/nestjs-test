@@ -50,7 +50,7 @@ export class ProductController implements CrudController<Product> {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   createMany(
-    @ParsedBody() dto: CreateManyDto<Product>,
+    @ParsedBody() dto: CreateManyDto<CreateProductDto>,
     @ParsedRequest() req: CrudRequest,
   ) {
     return this.base.createManyBase(req, dto);
