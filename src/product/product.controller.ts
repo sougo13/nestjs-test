@@ -1,6 +1,6 @@
 import { CacheInterceptor, Controller, UseGuards, UseInterceptors } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { CreateManyDto, Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Product } from './product.entity';
 import { ProductService } from './product.service';
@@ -34,7 +34,24 @@ export class ProductController implements CrudController<Product> {
   }
 
   @Override()
+  @UseInterceptors(CacheInterceptor)
+  async getMany(@ParsedRequest() req: CrudRequest){
+    return this.base.getManyBase(req);
+  }
+
+  @Override()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  createMany(
+    @ParsedBody() dto: CreateManyDto<Product>,
+    @ParsedRequest() req: CrudRequest,
+    ) {
+    return this.base.createManyBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async createOne(
     @ParsedRequest() req: CrudRequest,
     @ParsedBody() dto: Product){
@@ -43,9 +60,36 @@ export class ProductController implements CrudController<Product> {
 
   @Override()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   async updateOne(
     @ParsedRequest() req: CrudRequest,
     @ParsedBody() dto: Product){
     return this.base.updateOneBase(req, dto);
   }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  async replaseOne(
+    @ParsedRequest() req: CrudRequest,
+    @ParsedBody() dto: Product){
+    return this.base.replaceOneBase(req, dto);
+  }
+
+  @Override()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  async deleteOne(
+    @ParsedRequest() req: CrudRequest,
+  ) {
+    return this.base.deleteOneBase(req);
+  }
+
+  @Override()
+  async recoverOne(
+    @ParsedRequest() req: CrudRequest,
+  ) {
+    return this.base.recoverOneBase(req);
+  }
 }
+
