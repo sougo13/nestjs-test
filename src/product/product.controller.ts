@@ -8,7 +8,7 @@ import { ProductService } from './product.service';
 
 @Crud({
   model: {
-    type: Product
+    type: CreateProductDto
   },
   params: {
     productId: {
@@ -27,7 +27,7 @@ import { ProductService } from './product.service';
 
 @ApiTags("Products")
 @Controller("products")
-export class ProductController implements CrudController<Product> {
+export class ProductController implements CrudController<CreateProductDto> {
   constructor(public service: ProductService) { }
 
   get base(): CrudController<CreateProductDto> {
