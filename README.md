@@ -10,7 +10,7 @@ after launching the application
 http://localhost:5000/api/docs
 
 ## Data for filling in the product table
-you can enter data using the api http://localhost:5000/api/docs/#/Products/createManyBaseProductControllerProduct
+you can enter data using the api http://localhost:5000/api/docs/#/Products/createManyBaseProductControllerCreateProductDto
 
 ```json
 {
