@@ -10,6 +10,7 @@ async function start() {
     .setTitle('Nest Project')
     .setDescription('Документация REST API')
     .setVersion('1.0.0')
+    .addBearerAuth()
     .addTag('Radostev Dmitry')
     .build()
 

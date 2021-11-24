@@ -6,10 +6,8 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN nest build
-
 COPY . .
 
-COPY ./dist ./dist
+RUN npm run build
 
 CMD ["npm", "run", "start:dev"]
